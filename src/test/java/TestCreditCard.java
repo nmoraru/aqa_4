@@ -3,16 +3,18 @@ import org.openqa.selenium.Keys;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 
 public class TestCreditCard {
+
     String date = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     String dateUnderMin = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     String dateOverMin = LocalDate.now().plusDays(5).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-
+    
     @Test
     void shouldSubmitRequest() {
         open("http://localhost:9999");
@@ -41,14 +43,27 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldDateFromCalendar() throws InterruptedException {
+    void shouldDateFromCalendar() {
+        Calendar calendar = Calendar.getInstance();
+        int monthMaxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        String s = LocalDate.now().format(DateTimeFormatter.ofPattern("dd"));
+        Integer nowDate = Integer.parseInt(s);
+
+        int d = monthMaxDays - nowDate;
+
         open("http://localhost:9999");
         $("[placeholder = Город].input__control").setValue("Москва");
         $(".icon_name_calendar").click();
-        Thread.sleep(5000);
 
-        // TODO: 1. Понять, какой селектор отвечает за элементы календаря. Сейчас при выборе курсора в отладчике календарь пропадает
-        // TODO: 2. Понять, как в календаре посмотреть текущую дату (селектор).
+        if (d >= 7) {
+            $$("[data-day]").find(exactText(Integer.toString(nowDate + 7))).click();
+        } else if (d <= 2) {
+            $$("[data-day]").find(exactText(Integer.toString(7 - d))).click();
+        } else {
+            $("[data-step = '1'").click();
+            $$("[data-day]").find(exactText(Integer.toString(7 - d))).click();
+        }
 
         $("[name = name].input__control").setValue("Иван Иванов");
         $("[name = phone].input__control").setValue("+79005554433");
