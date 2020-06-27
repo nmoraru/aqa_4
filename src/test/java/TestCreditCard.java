@@ -26,6 +26,37 @@ public class TestCreditCard {
         $("[data-test-id = notification]").waitUntil(visible, 15000);
     }
 
+    @Test
+    void shouldCityAutocomplete() {
+        open("http://localhost:9999");
+        $("[placeholder = Город].input__control").setValue("ка");
+        $$(".menu-item").find(exactText("Сыктывкар")).click();
+        $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+        $("[data-test-id='date'] [type='tel']").setValue(date);
+        $("[name = name].input__control").setValue("Иван Иванов");
+        $("[name = phone].input__control").setValue("+79005554433");
+        $(".checkbox").click();
+        $(".button").click();
+        $("[data-test-id = notification]").waitUntil(visible, 15000);
+    }
+
+    @Test
+    void shouldDateFromCalendar() throws InterruptedException {
+        open("http://localhost:9999");
+        $("[placeholder = Город].input__control").setValue("Москва");
+        $(".icon_name_calendar").click();
+        Thread.sleep(5000);
+
+        // TODO: 1. Понять, какой селектор отвечает за элементы календаря. Сейчас при выборе курсора в отладчике календарь пропадает
+        // TODO: 2. Понять, как в календаре посмотреть текущую дату (селектор).
+        
+        $("[name = name].input__control").setValue("Иван Иванов");
+        $("[name = phone].input__control").setValue("+79005554433");
+        $(".checkbox").click();
+        $(".button").click();
+        $("[data-test-id = notification]").waitUntil(visible, 15000);
+    }
+
     // Административный центр республики
     @Test
     void shouldCityInRepublic() {
