@@ -1,1 +1,1 @@
-test
+[![Build status](https://ci.appveyor.com/api/projects/status/ssa78qfxjuiq4c5c?svg=true)](https://ci.appveyor.com/project/nmoraru/aqa-4)
