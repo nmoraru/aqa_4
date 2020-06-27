@@ -5,6 +5,7 @@ stack: jdk 11  # версия JDK
 branches:
   only:
     - master  # ветка git
+    - complex-elements
 
 build: off  # будем использовать свой скрипт сборки
 
