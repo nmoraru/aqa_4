@@ -27,10 +27,108 @@ public class TestCreditCard {
         $("[data-test-id = notification]").waitUntil(visible, 15000);
     }
 
+    // Административный центр республики
+    @Test
+    void shouldCityInRepublic() {
+        open("http://localhost:9999");
+        $("[placeholder = Город].input__control").setValue("Йошкар-Ола");
+        $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+        $("[data-test-id='date'] [type='tel']").setValue(date);
+        $("[name = name].input__control").setValue("Иван Иванов");
+        $("[name = phone].input__control").setValue("+79005554433");
+        $(".checkbox").click();
+        $(".button").click();
+        $("[data-test-id = notification]").waitUntil(visible, 15000);
+    }
+
+    // Административный центр края
+    @Test
+    void shouldCityInRegion() {
+        open("http://localhost:9999");
+        $("[placeholder = Город].input__control").setValue("Петропавловск-Камчатский");
+        $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+        $("[data-test-id='date'] [type='tel']").setValue(date);
+        $("[name = name].input__control").setValue("Иван Иванов");
+        $("[name = phone].input__control").setValue("+79005554433");
+        $(".checkbox").click();
+        $(".button").click();
+        $("[data-test-id = notification]").waitUntil(visible, 15000);
+    }
+
+    // Административный центр области
+    @Test
+    void shouldCityInDomain() {
+        open("http://localhost:9999");
+        $("[placeholder = Город].input__control").setValue("Ярославль");
+        $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+        $("[data-test-id='date'] [type='tel']").setValue(date);
+        $("[name = name].input__control").setValue("Иван Иванов");
+        $("[name = phone].input__control").setValue("+79005554433");
+        $(".checkbox").click();
+        $(".button").click();
+        $("[data-test-id = notification]").waitUntil(visible, 15000);
+    }
+
+    // Город федерального значения
+    @Test
+    void shouldFederalCity1() {
+        open("http://localhost:9999");
+        $("[placeholder = Город].input__control").setValue("Севастополь");
+        $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+        $("[data-test-id='date'] [type='tel']").setValue(date);
+        $("[name = name].input__control").setValue("Иван Иванов");
+        $("[name = phone].input__control").setValue("+79005554433");
+        $(".checkbox").click();
+        $(".button").click();
+        $("[data-test-id = notification]").waitUntil(visible, 15000);
+    }
+
+    // Город федерального значения
+    @Test
+    void shouldFederalCity2() {
+        open("http://localhost:9999");
+        $("[placeholder = Город].input__control").setValue("Санкт-Петербург");
+        $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+        $("[data-test-id='date'] [type='tel']").setValue(date);
+        $("[name = name].input__control").setValue("Иван Иванов");
+        $("[name = phone].input__control").setValue("+79005554433");
+        $(".checkbox").click();
+        $(".button").click();
+        $("[data-test-id = notification]").waitUntil(visible, 15000);
+    }
+
+    // Административный центр автономной области
+    @Test
+    void shouldAutonomicDomain() {
+        open("http://localhost:9999");
+        $("[placeholder = Город].input__control").setValue("Биробиджан");
+        $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+        $("[data-test-id='date'] [type='tel']").setValue(date);
+        $("[name = name].input__control").setValue("Иван Иванов");
+        $("[name = phone].input__control").setValue("+79005554433");
+        $(".checkbox").click();
+        $(".button").click();
+        $("[data-test-id = notification]").waitUntil(visible, 15000);
+    }
+
+    // Административный центр автономной области
+    @Test
+    void shouldAutonomicDistrict() {
+        open("http://localhost:9999");
+        $("[placeholder = Город].input__control").setValue("Нарьян-Мар");
+        $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+        $("[data-test-id='date'] [type='tel']").setValue(date);
+        $("[name = name].input__control").setValue("Иван Иванов");
+        $("[name = phone].input__control").setValue("+79005554433");
+        $(".checkbox").click();
+        $(".button").click();
+        $("[data-test-id = notification]").waitUntil(visible, 15000);
+    }
+
     @Test
     void shouldDateAutocomplete() {
         open("http://localhost:9999");
-        $("[placeholder = Город].input__control").setValue("Москва");
+        $("[placeholder = Город].input__control").setValue("Санкт-Петербург");
         $("[name = name].input__control").setValue("Иван Иванов");
         $("[name = phone].input__control").setValue("+79005554433");
         $(".checkbox").click();
@@ -325,5 +423,52 @@ public class TestCreditCard {
         $(".input_invalid .input__sub").shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр," +
                 " например, +79012345678."));
     }
-    
+
+    @Test
+    void shouldEmptyCity() {
+        open("http://localhost:9999");
+        $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+        $("[data-test-id='date'] [type='tel']").setValue(date);
+        $("[name = phone].input__control").setValue("+79005554433");
+        $(".checkbox").click();
+        $(".button").click();
+        $(".input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
+    }
+
+    @Test
+    void shouldForeignCity() {
+        open("http://localhost:9999");
+        $("[placeholder = Город].input__control").setValue("Лондон");
+        $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+        $("[data-test-id='date'] [type='tel']").setValue(date);
+        $("[name = phone].input__control").setValue("+79005554433");
+        $(".checkbox").click();
+        $(".button").click();
+        $(".input_invalid .input__sub").shouldHave(exactText("Доставка в выбранный город недоступна"));
+    }
+
+    @Test
+    void shouldRussianLittleCity() {
+        open("http://localhost:9999");
+        $("[placeholder = Город].input__control").setValue("Воркута");
+        $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+        $("[data-test-id='date'] [type='tel']").setValue(date);
+        $("[name = phone].input__control").setValue("+79005554433");
+        $(".checkbox").click();
+        $(".button").click();
+        $(".input_invalid .input__sub").shouldHave(exactText("Доставка в выбранный город недоступна"));
+    }
+
+    @Test
+    void shouldEngNameCity() {
+        open("http://localhost:9999");
+        $("[placeholder = Город].input__control").setValue("Moscow");
+        $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+        $("[data-test-id='date'] [type='tel']").setValue(date);
+        $("[name = phone].input__control").setValue("+79005554433");
+        $(".checkbox").click();
+        $(".button").click();
+        $(".input_invalid .input__sub").shouldHave(exactText("Доставка в выбранный город недоступна"));
+    }
+
 }
