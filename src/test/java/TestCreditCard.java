@@ -23,7 +23,9 @@ public class TestCreditCard {
         $("[name = phone].input__control").setValue("+79005554433");
         $(".checkbox").click();
         $(".button").click();
-        $("[data-test-id = notification]").waitUntil(visible, 15000);
+        //$("[data-test-id = notification]").waitUntil(visible, 15000);
+        $("[data-test-id = notification]").waitUntil(visible, 15000).shouldHave(exactText("Встреча" +
+                " успешно забронирована"));
     }
 
     // Административный центр республики
