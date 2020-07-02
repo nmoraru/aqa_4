@@ -14,7 +14,7 @@ public class TestCreditCard {
     String date = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     String dateUnderMin = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     String dateOverMin = LocalDate.now().plusDays(5).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-    
+
     @Test
     void shouldSubmitRequest() {
         open("http://localhost:9999");
